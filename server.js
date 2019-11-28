@@ -47,7 +47,8 @@ app.post('/persona/agregar',(req,res)=>{
     con.query("INSERT INTO personas(nombre_persona,direccion_persona,telefono_persona,email_persona) VALUES (?,?,?,?)",
     [req.body.nombre,req.body.direccion,req.body.telefono,req.body.email],(err,result,fields)=>{
         if(err)res.status(500).send(err);
-        res.status(200).send(result);
+        const response = JSON.stringify(result);
+        res.status(200).send(JSON.parse(response));
     });
 });
 
