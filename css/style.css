@@ -1,7 +1,15 @@
 .title {
     text-align: center;
   }
-
+  .footer {
+    
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: lightgray;
+    color: white;
+    text-align: center;
+  }
 h1 {
     text-align: center;
 }
