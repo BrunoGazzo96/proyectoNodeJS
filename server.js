@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const bodyparser = require('body-parser');
 const con = require('./Backend/bd/database-connection').con;
+const path = require('path');
 
 
 app.use(bodyparser.urlencoded({extended: true}));
@@ -22,7 +23,7 @@ app.get('/personas/mostrar',(req,res)=>{
     })
 });
 
-app.use(express.static('./Frontend'));
+app.use(express.static(path.join(__dirname, '/Frontend')));
 
 app.get('/mascotas/mostrar',(req,res)=>{
     con.query('SELECT * FROM mascota',(err,result,fields)=>{
@@ -38,6 +39,9 @@ app.get('/servicios/mostrar',(req,res)=>{
     })
 });
 
+app.get('/',(req,res)=>{
+    req.sendFile(path.join(__dirname,'/Frontend/index.html'));
+});
 
 app.post('/persona/agregar',(req,res)=>{
     con.query("INSERT INTO personas(nombre_persona,direccion_persona,telefono_persona,email_persona) VALUES (?,?,?,?)",
