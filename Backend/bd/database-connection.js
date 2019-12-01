@@ -1,10 +1,10 @@
 const mysql = require('mysql');
-
+require('dotenv').config();
 const con = mysql.createConnection({
-    host: '85.10.205.173',
-    user: 'veterinaria',
-    password: "12345678",
-    database: 'veterinarianode'
+    host:     process.env.DB_HOST,
+    user:     process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_DATABASE
 });
 
 exports.con = con;
