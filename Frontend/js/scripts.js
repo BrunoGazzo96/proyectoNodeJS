@@ -1,5 +1,6 @@
 
-function buscar(nombreI){
+function buscar(e,nombreI){
+    e.preventDefault();
     const nombre = document.getElementById(nombreI).value;
     fetch(`/buscar/${nombreI}`,{
         method: 'POST',
@@ -10,21 +11,20 @@ function buscar(nombreI){
         return res.json();
     }).then((res)=>{
         if(res.length<1){
-            alert("No se encontró a nadie con ese nombre");
+            alert("No se encontró a ninguna "+nombreI+" con ese nombre");
         }else{
+            var tabla = document.getElementById("tabla");
+            tabla.innerHTML= "";
             res.forEach(element => {
-                var tabla = document.getElementById("tabla");//crea la fila de la tabla y reemplaza cell# con el valor
-            var row = tabla.insertRow(-1);
-            var cell1 = row.insertCell(0);
-            var cell2 = row.insertCell(1);
-            var cell3 = row.insertCell(2);
-            cell1.innerHTML = element.nombre_persona;
-            cell2.innerHTML = element.nombre_mascota;
-            cell3.innerHTML = element.descripcion_servicio;
+            const tr = document.createElement('tr');
+            tr.innerHTML = `<td>${element.nombre_persona}</td>
+                            <td>${element.nombre_mascota}</td>
+                            <td>${element.descripcion_servicio}</td>`;
+            tabla.append(tr);
             });
         }
     }).catch((err)=>{
         console.log(err);
-    })
+    });
 }
 
